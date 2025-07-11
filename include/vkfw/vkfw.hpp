@@ -215,10 +215,6 @@ static_assert(GLFW_VERSION_MAJOR == VKFW_TARGET_GLFW_VERSION_MAJOR
   #define VKFW_ENUMERATOR2(name_1, name_2) e##name_1
 #endif
 
-#ifdef VKFW_MODULE_IMPLEMENTATION
-export module vkfw;
-#endif
-
 #ifdef VKFW_ENABLE_VULKAN_HPP_MODULE
 import vulkan_hpp;
 #endif
