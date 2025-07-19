@@ -3130,8 +3130,15 @@ namespace VKFW_NAMESPACE {
     glfwCreateWindowSurface(instance, window, allocator, &output);
 
     vk::Optional<vk::AllocationCallbacks const> vulkan_hpp_allocator = nullptr;
-    if (allocator)
+    if (allocator) {
+#if !defined( VULKAN_HPP_NO_CONSTRUCTORS ) && !defined( VULKAN_HPP_NO_STRUCT_CONSTRUCTORS )
       vulkan_hpp_allocator = vk::AllocationCallbacks(*allocator);
+#else
+      vk::AllocationCallbacks callbacks;
+      callbacks = *allocator;
+      vulkan_hpp_allocator = callbacks;
+#endif
+    }
 
       #if (VK_HEADER_VERSION) >= 301
     vk::detail::ObjectDestroy<vk::Instance, VULKAN_HPP_DEFAULT_DISPATCHER_TYPE>
